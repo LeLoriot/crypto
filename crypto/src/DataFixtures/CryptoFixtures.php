@@ -5,7 +5,7 @@ use App\Entity\Crypto;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class TuteurFixtures extends Fixture
+class CryptoFixtures extends Fixture
 {
     /**
      * @param ObjectManager $manager
