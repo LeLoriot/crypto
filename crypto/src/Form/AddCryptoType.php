@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Crypto;
+use App\Entity\User;
+use Cassandra\Date;
+use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,10 +20,11 @@ class AddCryptoType extends AbstractType
             ->add('Symbole')
             ->add('DateCreation')
             ->add('Createur')
-            ->add('Minable')
-            ->add('users')
+            ->add('Minable');
         ;
     }
+
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
