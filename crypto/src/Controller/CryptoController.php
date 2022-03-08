@@ -89,7 +89,27 @@ class CryptoController extends AbstractController
             'form' => $form->createView(), ]);
     }
 
-
+    /**
+     * Supprimer une crypto.
+     * @Route("lesCryptos/{id}/delete", name="crypto.delete") * @param Request $request
+     * @param Crypto $crypto
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function delete(Request $request, Crypto $crypto, EntityManagerInterface $em) : Response
+    {
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('crypto.delete', ['id' => $crypto->getId()])) ->getForm();
+        $form->handleRequest($request);
+        if ( ! $form->isSubmitted() || ! $form->isValid()) {
+            return $this->render('crypto/delete.html.twig', [ 'crypto' => $crypto,
+                'form' => $form->createView(),
+            ]); }
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($crypto);
+        $em->flush();
+        return $this->redirectToRoute('crypto.list');
+    }
 
 }
 

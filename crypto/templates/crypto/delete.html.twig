@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="alert alert-danger">
+        <strong>Avertissement !</strong> Vous êtes en train de supprimer la cryptomonnaie suivante :
+        <ul>
+            <li><strong>Nom : </strong> {{ crypto.nom }}</li>
+            <li><strong>Symbole : </strong>{{ crypto.symbole }}</li>
+            <li><strong>DateCreation : </strong>{{crypto.dateCreation|date('Y-m-d')}}</li>
+            <li><strong>Createur : </strong>{{crypto.createur}}</li>
+            <li><strong>Minable : </strong>{{ crypto.minable }}</li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse">
+        {{ form_start(form, {'attr': {'class': 'navbar-form navbar-left'}}) }}
+        {{ form_widget(form) }}
+        <a href="{{ path('crypto.list') }}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>Annuler</a>
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes vous sûr ??')">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            Supprimer
+        </button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
