@@ -71,6 +71,25 @@ class CryptoController extends AbstractController
             'form' => $form->createView(), ]);
     }
 
+    /**
+     * Éditer une crypto.
+     * @Route("lesCryptos/{id}/edit", name="crypto.edit") * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse|Response
+     */
+    public function edit(Request $request, Crypto $crypto, EntityManagerInterface $em) : Response
+    {
+        $form = $this->createForm(AddCryptoType::class, $crypto);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('crypto.list');
+        }
+        return $this->render('crypto/edit.html.twig', [
+            'form' => $form->createView(), ]);
+    }
+
+
 
 }
 
