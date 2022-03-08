@@ -49,9 +49,15 @@ class Crypto
      */
     private $commentaires;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="mesCryptos")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +150,33 @@ class Crypto
             if ($commentaire->getCrypto() === $this) {
                 $commentaire->setCrypto(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addMesCrypto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeMesCrypto($this);
         }
 
         return $this;

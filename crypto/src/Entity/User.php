@@ -41,9 +41,15 @@ class User implements UserInterface
      */
     private $commentaires;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Crypto::class, inversedBy="users")
+     */
+    private $mesCryptos;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->mesCryptos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,6 +159,30 @@ class User implements UserInterface
                 $commentaire->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Crypto>
+     */
+    public function getMesCryptos(): Collection
+    {
+        return $this->mesCryptos;
+    }
+
+    public function addMesCrypto(Crypto $mesCrypto): self
+    {
+        if (!$this->mesCryptos->contains($mesCrypto)) {
+            $this->mesCryptos[] = $mesCrypto;
+        }
+
+        return $this;
+    }
+
+    public function removeMesCrypto(Crypto $mesCrypto): self
+    {
+        $this->mesCryptos->removeElement($mesCrypto);
 
         return $this;
     }
