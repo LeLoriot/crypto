@@ -6,17 +6,13 @@
             <th class="active text-center">Nom</th>
             <th class="active text-center">Symbole</th>
             <th class="active text-center">Date de Création</th>
-            <th class="active text-center">Createur</th>
-            <th class="active text-center">Minable</th>
         </tr>
 
         {% for crypto in cryptos %}
             <tr>
-                <td>{{ crypto.nom }}</td>
+                <td><a href="{{ path('crypto.show', {id: crypto.id}) }}">{{ crypto.nom }}</a></td>
                 <td>{{ crypto.symbole }}</td>
                 <td>{{ crypto.dateCreation|date('Y-m-d')}}</td>
-                <td>{{ crypto.createur }}</td>
-                <td>{{ crypto.minable }}</td>
             </tr>
         {% endfor %}
     </table>

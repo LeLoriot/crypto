@@ -29,5 +29,17 @@ class CryptoController extends AbstractController
         return $this->render('crypto/list.html.twig', [
             'cryptos' => $cryptos, ]);
     }
+
+    /**
+     * Lister toutes les cryptos.
+     * @Route("lesCryptos/detail/{id}", name="crypto.show") * @return Response
+     */
+    public function detail($id) : Response
+    {
+        $crypto = $this->getDoctrine()->getRepository(Crypto::class)->find($id);
+        return $this->render('crypto/show.html.twig', [
+            'crypto' => $crypto, ]);
+    }
+
 }
 
