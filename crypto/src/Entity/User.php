@@ -186,4 +186,17 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $mesRoles = $this->getRoles();
+        $lesRoles = "";
+        foreach ($mesRoles as $key=>$value) {
+            $lesRoles = $lesRoles.$value;
+        }
+
+        return "Email : ".$this->getEmail()." , Username : ".$this->getUsername()." , Password : ".$this->getPassword()." , Role : " .$lesRoles;
+    }
+
+
 }
