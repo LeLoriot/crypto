@@ -6,13 +6,15 @@
             <th class="active text-center">Nom</th>
             <th class="active text-center">Symbole</th>
             <th class="active text-center">Date de Création</th>
+            <th class="active text-center">Modifier</th>
+            <th class="active text-center">Supprimer</th>
         </tr>
 
         {% for crypto in cryptos %}
             <tr>
                 <td><a href="{{ path('crypto.show', {id: crypto.id}) }}">{{ crypto.nom }}</a></td>
                 <td>{{ crypto.symbole }}</td>
-                <td>{{ crypto.dateCreation|date('Y-m-d')}}</td>
+                <td>{{ crypto.dateCreation|date('d-m-Y')}}</td>
                 <td><a class = "btn btn-default" href="{{ path('crypto.edit', {id: crypto.id}) }}">
                         <span class="glyphicon glyphicon-pencil" color="blue" aria-hidden="true" > </span>
                     </a></td>
