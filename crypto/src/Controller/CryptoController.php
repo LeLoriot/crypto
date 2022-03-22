@@ -33,7 +33,7 @@ class CryptoController extends AbstractController
 
     /**
      * Lister toutes les cryptos.
-     * @Route("/lesCryptos/", name="crypto.list") * @return Response
+     * @Route("/lesCryptos", name="crypto.list") * @return Response
      */
     public function list() : Response
     {
@@ -44,11 +44,11 @@ class CryptoController extends AbstractController
 
     /**
      * Lister les détails d'une crypto.
-     * @Route("lesCryptos/detail/{id}", name="crypto.show") * @return Response
+     * @Route("lesCryptos/detail/{idC}", name="crypto.show") * @return Response
      */
-    public function detail($id) : Response
+    public function detail($idC) : Response
     {
-        $crypto = $this->getDoctrine()->getRepository(Crypto::class)->find($id);
+        $crypto = $this->getDoctrine()->getRepository(Crypto::class)->find($idC);
         return $this->render('crypto/show.html.twig', [
             'crypto' => $crypto, ]);
     }
@@ -109,6 +109,18 @@ class CryptoController extends AbstractController
         $em->remove($crypto);
         $em->flush();
         return $this->redirectToRoute('crypto.list');
+    }
+
+    /**
+     * @Route("/change_locale/{locale}", name="change_locale")
+     */
+    public function changeLocale($locale, Request $request)
+    {
+        // On stocke la langue dans la session
+        $request->getSession()->set('_locale', $locale);
+
+        // On revient sur la page précédente
+        return $this->redirect($request->headers->get('referer'));
     }
 
 }
