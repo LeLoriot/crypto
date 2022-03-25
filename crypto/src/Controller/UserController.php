@@ -79,23 +79,28 @@ class UserController extends AbstractController
             'form' => $form->createView(), ]);
     }
 
-
-
-
-
     /**
-     * @Route("/user/listCyptos/{id}", name="user.listcryptos")
+     * @Route("/user/deleteFavorisCrypto/{idC}", name="user.deleteFavorisCrypto") * @return Response
+     * @param EntityManagerInterface $em
+     * @param Crypto $idC
      * @return Response
      */
-    public function listCryptos(EntityManagerInterface $em, $id) : Response
+    public function deleteFavorisCrypto($idC, EntityManagerInterface $em): Response
     {
-        $query = $em->createQuery(
-            'SELECT u FROM App:User u WHERE u.id = :id'
-        )->setParameter('id', $id);
-        $user = $query->getResult();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('email' => $this->getUser()->getUsername()));
+        //dd($user);
+        $crypto = $this->getDoctrine()->getRepository(Crypto::class)->findOneBy(array('id' => $idC));
+        //dd($crypto[0]);
+        //$crypto->addUser($user[0]);
+        $user->removeMesCrypto($crypto);
+        $em->flush();
         //var_dump($user);
+        //dd($user);
         return $this->render('user/listMesCryptos.html.twig', [
-            'user' => $user,
-        ]);
+            'monUser' => $user, ]);
     }
+
+
+
 }
