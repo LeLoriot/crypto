@@ -37,7 +37,7 @@ class CryptoController extends AbstractController
      * Lister toutes les cryptos.
      * @Route("/lesCryptos", name="crypto.list") * @return Response
      */
-    public function list() : Response
+    public function list(EntityManagerInterface $em) : Response
     {
         if (empty($_COOKIE['theme'])) {
             $response = new Response();
@@ -52,7 +52,7 @@ class CryptoController extends AbstractController
             //dd($response);
             $response->send();
         }
-        //dd(($_COOKIE['Theme']));
+
         $cryptos = $this->getDoctrine()->getRepository(Crypto::class)->findAll();
         return $this->render('crypto/list.html.twig', [
             'cryptos' => $cryptos, ]);
