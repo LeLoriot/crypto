@@ -26,11 +26,33 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/test/{id}", name="user.listTestCryptos") * @return Response
+     * @Route("/user/listMesCryptos/", name="user.listMesCryptos") * @return Response
      */
-    public function listCryptos($id): Response
+    public function listMesCryptos(): Response
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        //Recupere le user actuellement connecté
+        $user = $this->getDoctrine()->getRepository(User::class)->findBy(array('email' => $this->getUser()->getUsername()));
+        //var_dump($user);
+        return $this->render('user/listMesCryptos.html.twig', [
+            'user' => $user, ]);
+    }
+
+    /**
+     * @Route("/user/addFavorisCryptos/{idC}", name="user.addFavorisCrypto") * @return Response
+     * @param EntityManagerInterface $em
+     * @param Crypto $idC
+     * @return Response
+     */
+    public function addFavorisCrypto($idC, EntityManagerInterface $em): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('email' => $this->getUser()->getUsername()));
+        //dd($user);
+        $crypto = $this->getDoctrine()->getRepository(Crypto::class)->findOneBy(array('id' => $idC));
+        //dd($crypto[0]);
+        //$crypto->addUser($user[0]);
+        $user->addMesCrypto($crypto);
+        $em->flush();
         //var_dump($user);
         return $this->render('user/listMesCryptos.html.twig', [
             'user' => $user, ]);
@@ -45,8 +67,10 @@ class UserController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em) : Response
     {
         $user = new User();
-        $form = $this->createForm(AddUserType::class, $user); $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) { $em->persist($user);
+        $form = $this->createForm(AddUserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('crypto.list');
         }
@@ -54,11 +78,15 @@ class UserController extends AbstractController
             'form' => $form->createView(), ]);
     }
 
+
+
+
+
     /**
-     * @Route("/user/listCyptos/{id}", name="user.listMescryptos")
+     * @Route("/user/listCyptos/{id}", name="user.listcryptos")
      * @return Response
      */
-    public function listMesCryptos(EntityManagerInterface $em, $id) : Response
+    public function listCryptos(EntityManagerInterface $em, $id) : Response
     {
         $query = $em->createQuery(
             'SELECT u FROM App:User u WHERE u.id = :id'

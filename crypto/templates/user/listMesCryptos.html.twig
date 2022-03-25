@@ -10,10 +10,14 @@
             <th class="active text-center">Minable</th>
         </tr>
 
-
+        {% for  crypto in user.mesCryptos %}
             <tr>
-                <td>{{ user }}</td>
+                <td>{{ crypto.Nom }}</td>
+                <td>{{ crypto.Symbole }}</td>
+                <td>{{ crypto.dateCreation|date('d-m-Y') }}</td>
+                <td>{{ crypto.Createur }}</td>
+                <td>{{ crypto.Minable }}</td>
             </tr>
-
+        {% endfor %}
     </table>
 {% endblock %}
