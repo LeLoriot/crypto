@@ -59,7 +59,7 @@ class CryptoController extends AbstractController
     }
 
     /**
-     * Lister toutes les cryptos.
+     * Change le thème.
      * @Route("/lesCryptos/swapTheme/{theme}", name="crypto.swapTheme") * @return Response
      */
     public function swapTheme($theme, Request $request) : Response
