@@ -31,10 +31,10 @@ class UserController extends AbstractController
     public function listMesCryptos(): Response
     {
         //Recupere le user actuellement connecté
-        $user = $this->getDoctrine()->getRepository(User::class)->findBy(array('email' => $this->getUser()->getUsername()));
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('email' => $this->getUser()->getUsername()));
         //var_dump($user);
         return $this->render('user/listMesCryptos.html.twig', [
-            'user' => $user, ]);
+            'monUser' => $user, ]);
     }
 
     /**
