@@ -9,7 +9,15 @@
 
     {% block javascripts %}{% endblock %}
 
-    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+
+    <div>
+        {% if app.request.cookies.get('theme') == 'pulse' %}
+        <a href="{{ path('crypto.swapTheme' ,{'theme': app.request.cookies.get('theme')}) }}">Sombre</a>
+        {% else %}
+        <a href="{{ path('crypto.swapTheme',{'theme': app.request.cookies.get('theme')}) }}">Lumineux</a>
+        {% endif %}
+    </div>
+    <link rel="stylesheet" href="https://bootswatch.com/4/{{ app.request.cookies.get('theme') }}/bootstrap.min.css">
 
 </head>
 <body>

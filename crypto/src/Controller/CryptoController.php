@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Cookie;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,9 +39,38 @@ class CryptoController extends AbstractController
      */
     public function list() : Response
     {
+        if (empty($_COOKIE['theme'])) {
+            $response = new Response();
+            $cookie = new Cookie('theme', //Nom cookie
+                'pulse', //Valeur
+                strtotime('tomorrow'), //expire le
+                '/', //Chemin de serveur
+                'localhost', //Nom domaine
+                true, //Https seulement
+                true); // Disponible uniquement dans le protocole HTTP
+            $response->headers->setCookie($cookie);
+            //dd($response);
+            $response->send();
+        }
+        //dd(($_COOKIE['Theme']));
         $cryptos = $this->getDoctrine()->getRepository(Crypto::class)->findAll();
         return $this->render('crypto/list.html.twig', [
             'cryptos' => $cryptos, ]);
+    }
+
+    /**
+     * Lister toutes les cryptos.
+     * @Route("/lesCryptos/swapTheme/{theme}", name="crypto.swapTheme") * @return Response
+     */
+    public function swapTheme($theme, Request $request) : Response
+    {
+        if($theme == 'darkly'){
+            $theme = 'pulse';
+        }else{
+            $theme = 'darkly';
+        }
+        setcookie('theme', $theme, strtotime('tomorrow'), '/', 'localhost', true);
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
