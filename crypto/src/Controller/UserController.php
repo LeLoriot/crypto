@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -120,11 +121,16 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $em
      * @return RedirectResponse|Response
      */
-    public function edit(Request $request, User $user, EntityManagerInterface $em) : Response
+    public function edit(Request $request, User $user, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder) : Response
     {
         $form = $this->createForm(AddUserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            //encodage du mot de passe
+            $user->setPassword(
+                $passwordEncoder->encodePassword($user, $user->getPassword()));
+            $entityManager->persist($user);
             $em->flush();
             return $this->redirectToRoute('user.list');
         }
