@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Détails de la cryptomonnaie {{ crypto.nom }} : </h1>
+    <div class="media" style="margin-top: 60px;">
+        <div class="media-body">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h3 class="media-heading"><strong>{{ crypto.nom }}</strong></h3>
+
+                </div>
+            </div>
+            <div>
+                <p><b>Symbole :</b> {{ crypto.symbole }}</p>
+                <p>
+                    <b>Peut-on miner cette cryptomonnaie :</b> {{ crypto.minable }}
+                </p>
+                <p><b>Crée le :</b> {{ crypto.dateCreation|date('d-m-Y') }}</p>
+            </div>
+            <br/><br/><br/><br/>
+            <p>
+                <strong>Les commentaires de la cryptomonnaie : </strong>
+            </p>
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-secondary" href="{{ path('crypto.list') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                            <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                        </svg>
+                        Liste des cryptomonnaies
+                    </a>
+
+                    <a class="btn btn-primary" href=" {{ path('commentaire.index', {idC: crypto.id}) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                       Ajouter un commentaire
+                    </a>
+                </div>
+            </div>
+            <br/>
+            <table class="table text-center">
+                <tr>
+                    <th class="active text-center">Nom</th>
+                    <th class="active text-center">Date</th>
+                    <th class="active text-center">Commentaire</th>
+                    <th class="activate text-center">Supprimer</th>
+                </tr>
+
+                {% for commentaire in crypto.getCommentaires %}
+                    <tr>
+                        <td>{{ commentaire.auteur }}</td>
+                        <td>{{ commentaire.date|date('d-m-Y') }}</td>
+                        <td>{{ commentaire.contenu}}</td>
+                        <td><a class = "btn btn-danger" href="{{ path('commentaire.delete', {id: commentaire.id}) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                </svg>
+                            </a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

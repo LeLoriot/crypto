@@ -28,11 +28,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ["ROLE_USER"];
+    private $roles = [];
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $password;
 
@@ -101,7 +101,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }

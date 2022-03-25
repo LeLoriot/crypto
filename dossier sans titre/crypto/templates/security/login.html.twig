@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Blog Cryptomonnaies{% endblock %}
+{% block title %}Log in!{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -14,7 +14,7 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Page de connexion</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword">Password</label>
@@ -34,20 +34,9 @@
             </label>
         </div>
     #}
-    <div>
-        <button class="btn btn-lg btn-primary" type="submit">
-            Connexion
-        </button>
-    </div>
-    <br/>
-    Vous n'avez pas encore de compte ?
-    <div>
-    <a class="btn btn-secondary" href="{{ path('security.create') }}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
-        </svg>
-        Créer un compte
-    </a>
-    </div>
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
 </form>
 {% endblock %}

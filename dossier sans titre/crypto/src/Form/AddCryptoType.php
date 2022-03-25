@@ -2,29 +2,34 @@
 
 namespace App\Form;
 
+use App\Entity\Crypto;
 use App\Entity\User;
-use phpDocumentor\Reflection\TypeResolver;
-use phpDocumentor\Reflection\Types\Array_;
+use Cassandra\Date;
+use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddUserType extends AbstractType
+class AddCryptoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add('Nom')
+            ->add('Symbole')
+            ->add('DateCreation')
+            ->add('Createur')
+            ->add('Minable');
         ;
     }
+
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Crypto::class,
         ]);
     }
 }
