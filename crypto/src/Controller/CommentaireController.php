@@ -35,14 +35,14 @@ class CommentaireController extends AbstractController
     {
         $com = new Commentaire();
         $com->setDate(new \DateTime('now'));
-        //$user = $this->getDoctrine()->getRepository(User::class)->find($idU);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('email' => $this->getUser()->getUsername()));
         $crypto = $this->getDoctrine()->getRepository(Crypto::class)->find($idC);
 
 
         $form = $this->createForm(AddCommentaireType::class, $com);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { $em->persist($com);
-            //$user->addCommentaire($com);
+            $user->addCommentaire($com);
             $crypto->addCommentaire($com);
 
             $em->flush();

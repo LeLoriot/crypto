@@ -17,11 +17,11 @@ class AddCryptoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom', TextType::class)
-            ->add('Symbole', TextType::class)
-            ->add('DateCreation', DateType::class)
-            ->add('Createur', TextType::class)
-            ->add('Minable', TextType::class);
+            ->add('Nom')
+            ->add('Symbole')
+            ->add('DateCreation')
+            ->add('Createur')
+            ->add('Minable');
         ;
     }
 

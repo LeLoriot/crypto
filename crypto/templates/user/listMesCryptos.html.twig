@@ -10,7 +10,9 @@
             <th class="active text-center">Minable</th>
         </tr>
 
-        {% for  crypto in user.mesCryptos %}
+        {{ monUser.email }}
+
+        {% for  crypto in monUser.mesCryptos %}
             <tr>
                 <td>{{ crypto.Nom }}</td>
                 <td>{{ crypto.Symbole }}</td>

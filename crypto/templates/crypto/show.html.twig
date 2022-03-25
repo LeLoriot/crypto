@@ -51,7 +51,7 @@
 
                 {% for commentaire in crypto.getCommentaires %}
                     <tr>
-                        <td>{{ commentaire.auteur }}</td>
+                        <td>{{ commentaire.auteur.email }}</td>
                         <td>{{ commentaire.date|date('d-m-Y') }}</td>
                         <td>{{ commentaire.contenu}}</td>
                         <td><a class = "btn btn-danger" href="{{ path('commentaire.delete', {id: commentaire.id}) }}">

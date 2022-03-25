@@ -54,8 +54,9 @@ class UserController extends AbstractController
         $user->addMesCrypto($crypto);
         $em->flush();
         //var_dump($user);
+        //dd($user);
         return $this->render('user/listMesCryptos.html.twig', [
-            'user' => $user, ]);
+            'monUser' => $user, ]);
     }
 
     /**
