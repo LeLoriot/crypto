@@ -137,6 +137,9 @@ class CryptoController extends AbstractController
                 'form' => $form->createView(),
             ]); }
         $em = $this->getDoctrine()->getManager();
+        foreach ($crypto->getCommentaires() as $unComm){
+            $em->remove($unComm);
+        }
         $em->remove($crypto);
         $em->flush();
         return $this->redirectToRoute('crypto.list');
