@@ -49,20 +49,15 @@ class UserController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('email' => $this->getUser()->getUsername()));
-        //dd($user);
         $crypto = $this->getDoctrine()->getRepository(Crypto::class)->findOneBy(array('id' => $idC));
-        //dd($crypto[0]);
-        //$crypto->addUser($user[0]);
         $user->addMesCrypto($crypto);
         $em->flush();
-        //var_dump($user);
-        //dd($user);
         return $this->render('user/listMesCryptos.html.twig', [
             'monUser' => $user,]);
     }
 
     /**
-     * Créer une nouvelle crypto.
+     * Créer un nouvelle utilisateur.
      * @Route("/user/add", name="user.create") * @param Request $request
      * @param EntityManagerInterface $em
      * @return RedirectResponse|Response
@@ -155,6 +150,9 @@ class UserController extends AbstractController
                 'form' => $form->createView(),
             ]); }
         $em = $this->getDoctrine()->getManager();
+        foreach ($user->getCommentaires() as $unComm){
+            $em->remove($unComm);
+        }
         $em->remove($user);
         $em->flush();
         return $this->redirectToRoute('user.list');

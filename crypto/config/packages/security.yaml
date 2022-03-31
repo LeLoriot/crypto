@@ -36,3 +36,35 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+        # Necessite d'etre authetifier
+        # Creer un nouveau commentaire necessite d'etre authentifier
+        - { path: '^/newCom', roles: ROLE_USER }
+
+        # Ajouter une cypto monnaie a ces favoris necessite d'etre authentifier
+        - { path: '^/user/addFavorisCryptos', roles: ROLE_USER }
+
+        # Supprimer une cypto monnaie a ces favoris necessite d'etre authentifier
+        - { path: '^/user/deleteFavorisCryptos', roles: ROLE_USER }
+
+        # Lister ses cypto monnaie en favoris necessite d'etre authentifier
+        - { path: '^/user/listMesCryptos/', roles: ROLE_USER }
+
+        # Creer une nouvelle crypto monnaie neccessite d'etre admin
+        - { path: '^/lesCryptos/add', roles: ROLE_ADMIN }
+
+        # Modifier une crypto monnaie neccessite d'etre admin
+        - { path: '^/lesCryptos/edit', roles: ROLE_ADMIN }
+
+        # Supprimer une crypto monnaie neccessite d'etre admin
+        - { path: '^/lesCryptos/delete', roles: ROLE_ADMIN }
+
+        # supprimer un commentaire est reservé aux admins
+        - { path: '^/commentaire', roles: ROLE_ADMIN }
+
+        #  supprimer ou modifier ou lister tout les utilisateur est reservé aux admins
+        - { path: '^/lesUsers', roles: ROLE_ADMIN }
+
+
+
+

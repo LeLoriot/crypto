@@ -5,7 +5,7 @@
     <div class="alert alert-danger" role="alert">
         <strong>Avertissement !</strong> Vous êtes en train de supprimer le commentaire suivante :
         <ul>
-            <li><strong>Nom : </strong> {{ com.auteur }}</li>
+            <li><strong>Nom : </strong> {{ com.auteur.email }}</li>
             <li><strong>Date : </strong>{{ com.date|date('d-m-Y') }}</li>
             <li><strong>Commentaire : </strong>{{com.contenu}}</li>
         </ul>

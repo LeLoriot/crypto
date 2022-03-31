@@ -104,7 +104,7 @@ class CryptoController extends AbstractController
 
     /**
      * Éditer une crypto.
-     * @Route("lesCryptos/{id}/edit", name="crypto.edit") * @param Request $request
+     * @Route("lesCryptos/edit/{id}", name="crypto.edit") * @param Request $request
      * @param EntityManagerInterface $em
      * @return RedirectResponse|Response
      */
@@ -122,7 +122,7 @@ class CryptoController extends AbstractController
 
     /**
      * Supprimer une crypto.
-     * @Route("lesCryptos/{id}/delete", name="crypto.delete") * @param Request $request
+     * @Route("lesCryptos/delete/{id}", name="crypto.delete") * @param Request $request
      * @param Crypto $crypto
      * @param EntityManagerInterface $em
      * @return Response
